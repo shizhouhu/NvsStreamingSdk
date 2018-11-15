@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => "Meishe SDK License", :file => "LICENSE.md" }
   s.author       = { "shizhouhu" => "shi_zhouhu@cdv.com" }
   s.platform     = :ios, "8.0"
-  s.source       = { :git => "https://github.com/shizhouhu/NvStreamingSdk.git", :tag => s.version}
+  s.source       = { :git => "https://github.com/shizhouhu/NvsStreamingSdk.git", :tag => s.version}
   s.source_files = "lib/**/NvStreamingSdkCore.framework/Headers/*.h"
   s.public_header_files = "lib/**/NvStreamingSdkCore.framework/Headers/*.h"
   s.ios.vendored_frameworks = "lib/**/NvStreamingSdkCore.framework"
