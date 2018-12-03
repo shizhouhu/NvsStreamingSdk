@@ -460,6 +460,14 @@ NVS_EXPORT @interface NvsStreamingContext : NSObject
  */
 - (BOOL)setThemeEndingEnabled:(BOOL)enable;
 
+/*!
+ *  \brief 获取字体文件的fontFamily
+ *  \param fontFilePath 字体文件路径
+ *  \return 返回字体的fontFamily
+ */
+
+- (NSString*)registerFontByFilePath:(NSString *)fontFilePath;
+
 
 /*!
  *  \brief 创建时间线
@@ -808,6 +816,11 @@ setCustomCompileVideoHeight()接口来自定义高度，然后调用生成接口
  *  \sa startAutoFocus:
  */
 - (void)cancelAutoFocus;
+
+/*!
+ *  \brief 启动连续聚焦
+ */
+- (void)startContinuousFocus;
 
 /*!
  *  \brief 启动自动曝光调节
@@ -1172,6 +1185,14 @@ setCustomCompileVideoHeight()接口来自定义高度，然后调用生成接口
  */
 - (NvsVideoFrameRetriever *)createVideoFrameRetriever:(NSString *)videoFilePath;
 
+/*! \cond */
+/*!
+ *  \brief 验证某项功能是否可用。
+ *  \param sdkFunctionName sdk功能的名字
+ *  \return 返回BOOL值。YES表示授权验证成功，NO则验证失败。
+ */
++ (BOOL)functionalityAuthorised:(NSString *)sdkFunctionName;
+/*! \endcond */
 
 @end
 

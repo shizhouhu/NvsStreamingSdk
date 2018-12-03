@@ -69,6 +69,15 @@ NVS_EXPORT @interface NvsTimelineCaption : NvsFx
 -(bool) applyCaptionStyle:(NSString*) captionStylePackageId;
 
 /*!
+     \brief 运用字幕样式
+     \param captionStylePackageId 字幕样式资源包ID
+     \param isUseDefaultAssetParam 是否使用默认素材参数
+     \return 返回bool值。true表示成功运用字幕样式，false则运用失败
+     \warning 此接口会引发流媒体引擎状态跳转到引擎停止状态，具体情况请参见[引擎变化专题] (\ref EngineChange.md)。
+ */
+-(bool) applyCaptionStyleWithAssetDefaultParam:(NSString*) captionStylePackageId isUseDefaultAssetParam:(NvsAssetDefaultParam)isUseDefaultAssetParam;
+
+/*!
      \brief 设置字幕文本
      \param text 字幕文本
      \sa getText

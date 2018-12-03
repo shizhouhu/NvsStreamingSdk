@@ -72,6 +72,13 @@ typedef enum NvsTextAlignment
     NvsTextAlignmentRight
 } NvsTextAlignment;
 
+/*! \if ENGLISH \else \brief 使用默认的字幕包属性 \endif*/
+typedef enum NvsAssetDefaultParam
+{
+    USE_ASSET_DEFAULT_PARAM = 0,
+    NOT_USE_ASSET_DEFAULT_PARAM
+} NvsAssetDefaultParam;
+
 /*! \if ENGLISH \else \brief 片段在主题中的类型 \endif */
 typedef enum NvsCategory
 {

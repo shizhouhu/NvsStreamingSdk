@@ -110,7 +110,7 @@ NVS_EXPORT @interface NvsCustomVideoFxRenderHelper : NSObject
 - (void)reclaimTexture:(int)texId;
 
 /*!
- *  \brief 自定义视频特效的用户调用此方法来上传一个Host bufffer 到 OpenGL的纹理上
+ *  \brief 自定义视频特效的用户调用此方法来上传一个Host buffer 到 OpenGL的纹理上
  *  \param hostBuffer 要上传到host buffer
  *  \param tId 要上传到纹理ID
  */
