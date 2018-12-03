@@ -5,7 +5,7 @@
 	<key>CFBundleExecutable</key>
 	<string>NvStreamingSdkCore</string>
 	<key>CFBundleGetInfoString</key>
-	<string>Created by Meicam</string>
+	<string>Created by Meicam.</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.meicam.NvStreamingSdkCore</string>
 	<key>CFBundlePackageType</key>
