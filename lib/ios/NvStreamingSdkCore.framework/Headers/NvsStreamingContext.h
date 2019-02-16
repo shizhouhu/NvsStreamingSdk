@@ -11,6 +11,7 @@
 //   Author:        NewAuto video team
 //================================================================================
 #pragma once
+#define NV_AI_FU
 
 #import <Foundation/Foundation.h>
 #import "NvsTimeline.h"
@@ -269,6 +270,15 @@ typedef enum {
 - (void)didPlaybackTimelinePosition:(NvsTimeline *)timeline position:(int64_t)position;
 
 /*!
+ *  \brief 时间线播放视频延迟
+ *  \param timeline 时间线
+ *  \param delayTime 延迟时间
+ *  \param isVideo 是否是视频（true是视频，false是音频）
+ *  \since 2.5.0
+ */
+- (void)didPlaybackDelayed:(NvsTimeline *)timeline delayTime:(int64_t)time isVideo:(bool)flag;
+
+/*!
  *  \brief 播放停止
  *  \param timeline 时间线
  */
@@ -328,6 +338,14 @@ typedef enum {
  */
 
 - (void)didTimestampOutOfRange:(NvsTimeline *)timeline;
+
+/*!
+ *  \brief 时间线搜索的当前位置
+ *  \param timeline 时间线
+ *  \param position 时间线搜索的当前位置
+ *  \since 2.5.0
+ */
+- (void)didSeekingTimelinePosition:(NvsTimeline *)timeline position:(int64_t)position;
 
 /*!
  *  \brief 获取采集预览图像
@@ -459,6 +477,14 @@ NVS_EXPORT @interface NvsStreamingContext : NSObject
  *  \sa setDefaultThemeEndingLogoImageFilePath:
  */
 - (BOOL)setThemeEndingEnabled:(BOOL)enable;
+
+/*!
+ *  \brief 获取字体文件的fontFamily
+ *  \param fontFilePath 字体文件路径
+ *  \return 返回字体的fontFamily
+ */
+
+- (NSString*)registerFontByFilePath:(NSString *)fontFilePath;
 
 
 /*!
@@ -808,6 +834,11 @@ setCustomCompileVideoHeight()接口来自定义高度，然后调用生成接口
  *  \sa startAutoFocus:
  */
 - (void)cancelAutoFocus;
+
+/*!
+ *  \brief 启动连续聚焦
+ */
+- (void)startContinuousFocus;
 
 /*!
  *  \brief 启动自动曝光调节
@@ -1172,6 +1203,14 @@ setCustomCompileVideoHeight()接口来自定义高度，然后调用生成接口
  */
 - (NvsVideoFrameRetriever *)createVideoFrameRetriever:(NSString *)videoFilePath;
 
+/*! \cond */
+/*!
+ *  \brief 验证某项功能是否可用。
+ *  \param sdkFunctionName sdk功能的名字
+ *  \return 返回BOOL值。YES表示授权验证成功，NO则验证失败。
+ */
++ (BOOL)functionalityAuthorised:(NSString *)sdkFunctionName;
+/*! \endcond */
 
 @end
 

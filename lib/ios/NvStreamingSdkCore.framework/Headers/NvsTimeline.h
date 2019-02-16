@@ -142,6 +142,16 @@ NVS_EXPORT @interface NvsTimeline : NvsObject
 - (NvsAudioTrack *)getAudioTrackByIndex:(unsigned int)trackIndex;
 
 /*!
+    \brief 改变时间线的视频尺寸
+           注意:如果当前时间线已经被连接到了一个SurfaceTexture上，那么请在改变时间线的视频尺寸之前
+           先断开当前时间线与SurfaceTexture的连接，改变视频尺寸后再重现连接那个SurfaceTexture!
+    \param videoWidth 新的视频宽度
+    \param videoHeight 新的视频高度
+    \return 返回值表示改变是否成功
+    \since 2.5.0
+ */
+- (BOOL)changeVideoSize:(int)videoWidth videoHeight:(int)videoHeight;
+/*!
     \brief 获取时间线上的第一个字幕
     \return 返回获取的时间线字幕对象
     \sa getLastCaption

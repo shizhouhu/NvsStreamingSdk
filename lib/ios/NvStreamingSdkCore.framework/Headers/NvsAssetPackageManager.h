@@ -12,7 +12,7 @@
 //================================================================================
 #pragma once
 
-#import "NvsObject.h"
+#import "NvsCommonDef.h"
 
 #import <Foundation/Foundation.h>
 

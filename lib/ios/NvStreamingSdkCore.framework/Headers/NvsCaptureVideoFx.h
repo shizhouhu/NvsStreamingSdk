@@ -42,6 +42,8 @@ NVS_EXPORT @interface NvsCaptureVideoFx : NvsFx
 
 /*!
     \brief 将采集画面坐标转换为粒子系统坐标
+    \param imageWidth 采集画面宽度
+    \param imageHeight 采集画面高度
     \param ptImage 时间线坐标
     \return 返回转换后的粒子系统坐标CGPoint
     \since 2.3.1
