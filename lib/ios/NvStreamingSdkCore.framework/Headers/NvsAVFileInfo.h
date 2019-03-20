@@ -69,6 +69,14 @@ NVS_EXPORT @interface NvsAVFileInfo : NSObject
  */
 - (NvsVideoRotation)getVideoStreamRotation:(unsigned int)videoStreamIndex;
 
+
+/*!
+ *  \brief 通过视频流索引获取当前视频流的每个像素分量的有效比特数
+ *  \param videoStreamIndex 视频流索引
+ *  \return 返回当前视频流的Pixel位数
+ */
+- (unsigned int)getVideoStreamComponentBitCount:(unsigned int)videoStreamIndex;
+
 /*!
  *  \brief 通过音频流索引获取音频流时长
  *  \param audioStreamIndex 音频流索引

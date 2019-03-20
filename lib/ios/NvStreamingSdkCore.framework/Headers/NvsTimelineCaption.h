@@ -263,7 +263,7 @@ NVS_EXPORT @interface NvsTimelineCaption : NvsFx
 
 /*!
      \brief 设置字幕字体
-     \param filePath 字幕字体名字，若设为空字符串，则设为默认字体
+     \param family 字幕字体名字，若设为空字符串，则设为默认字体
      \since 2.4.2
      \sa getFontFamily
  */
@@ -414,6 +414,13 @@ NVS_EXPORT @interface NvsTimelineCaption : NvsFx
 - (float)getCenterPolarAngle;
 
 /*!
+    \brief 获取字幕文本中心点的极角。只对全景图字幕有效
+    \return 返回字幕文本中心点的极角，单位为角度
+    \since 2.5.1
+ */
+- (float)getTextCenterPolarAngle;
+
+/*!
     \brief 对字幕设置中心点的方位角。只对全景图字幕有效
     \param centerAzimuthAngle 中心点的极角，单位为角度
     \since 1.6.0
@@ -426,6 +433,13 @@ NVS_EXPORT @interface NvsTimelineCaption : NvsFx
     \since 1.6.0
  */
 - (float)getCenterAzimuthAngle;
+
+/*!
+    \brief 获取字幕文本中心点的方位角。只对全景图字幕有效
+    \return 返回字幕文本中心点的方位角，单位为角度
+    \since 2.5.1
+ */
+- (float)getTextCenterAzimuthAngle;
 
 /*!
     \brief 对字幕设置极角的张角。只对全景图字幕有效
@@ -442,11 +456,25 @@ NVS_EXPORT @interface NvsTimelineCaption : NvsFx
 - (float)getPolarAngleRange;
 
 /*!
+    \brief 获取字幕文本极角的张角。只对全景图字幕有效
+    \return 返回字幕文本极角的张角，单位为角度
+    \since 2.5.1
+ */
+- (float)getTextPolarAngleRange;
+
+/*!
     \brief 获取字幕与极角垂直的张角。只对全景图动画贴纸有效
-    \return 返字幕与极角垂直的张角，单位为角度
+    \return 返回字幕与极角垂直的张角，单位为角度
     \since 1.7.0
  */
 - (float)getOrthoAngleRange;
+
+/*!
+    \brief 获取字幕文本与极角垂直的张角。只对全景图动画贴纸有效
+    \return 返回字幕文本与极角垂直的张角，单位为角度
+    \since 2.5.1
+ */
+- (float)getTextOrthoAngleRange;
 
 /*!
     \brief 对字幕设置水平缩放系数。只对全景图字幕有效

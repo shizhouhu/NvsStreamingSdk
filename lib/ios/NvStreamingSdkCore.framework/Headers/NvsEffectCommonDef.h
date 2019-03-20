@@ -49,3 +49,31 @@ typedef struct {
 typedef struct {
     float x, y, z;
 } NvsEffectPosition3D;
+
+typedef enum NvsEffectVideoFramePixelFormat
+{
+    NvsEffectPixelFormat_Nv12,  //!< \if ENGLISH \else  YUV  4:2:0   12bpp ( 2通道, 一个通道是连续的亮度通道, 另一通道为VU分量交错 ) \endif
+    NvsEffectPixelFormat_YUV420, //!< \if ENGLISH \else  YUV  4:2:0   12bpp ( 3通道, 一个亮度通道, 另两个为U分量和V分量通道, 所有通道都是连续的 ) \endif
+    NvsEffectPixelFormat_BGRA
+} NvsEffectVideoFramePixelFormat;
+
+#define NVS_VIDEO_FRAME_MAX_PLANES     4
+
+typedef struct{
+    //!< \if ENGLISH \else 获取到图像的宽度(以像素为单位) \endif
+    int frameWidth;
+    //!< \if ENGLISH \else 获取到图像的高度(以像素为单位) \endif
+    int frameHeight;
+    //!< \if ENGLISH \else 平面图像每行在Frame中占的字节数 \endif
+    int planeRowPitch[NVS_VIDEO_FRAME_MAX_PLANES];
+    void* planePtr[NVS_VIDEO_FRAME_MAX_PLANES];
+    //!< \if ENGLISH \else 获取到图像的格式 \endif
+    NvsEffectVideoFramePixelFormat pixelFormat;
+    //!< \if ENGLISH \else 获取到图像的时间戳（单位微秒） \endif
+    int64_t frameTimestamp;
+    bool isRec601; //!< \if ENGLISH \else 是否是BT.601 \endif
+    bool isFullRangeYUV;
+
+    int displayRotation; //!< \if ENGLISH \else 显示当前图像需要旋转的角度 \endif
+    bool flipHorizontally; //!< \if ENGLISH \else 显示当前图像需要不需要水平翻转 \endif
+} NvsEffectVideoFrameInfo;

@@ -145,7 +145,8 @@ typedef enum {
  *  \brief 引擎播放标志
  */
 typedef enum {
-    NvsStreamingEnginePlaybackFlag_LowPipelineSize = 8         //!< 降低引擎在播放时内部的流水线尺寸
+    NvsStreamingEnginePlaybackFlag_LowPipelineSize = 8,         //!< 降低引擎在播放时内部的流水线尺寸
+    NvsStreamingEnginePlaybackFlag_DisableFixedPrerollTime = 16 //!< 降低引擎在播放时首帧的播出延迟
 } NvsStreamingEnginePlaybackFlag;
 
 /*!
@@ -155,6 +156,20 @@ typedef enum {
     NvsStreamingEngineStopFlag_Async = 2    //!< 异步停止引擎，避免阻塞主线程
 } NvsStreamingEngineStopFlag;
 
+/*!
+ *  \brief 人体检测特征标志
+ */
+typedef enum {
+    NvsHumanDetectionFeature_FaceLandmark = 1,
+    NvsHumanDetectionFeature_FaceAction = 2
+} NvsHumanDetectionFeatureFlag;
+
+/*!
+ *  \brief 人体检测数据包类型
+ */
+typedef enum {
+    NvsHumanDetectionDataType_FakeFace = 0
+} NvsHumanDetectionDataTypeFlag;
 
 /*! \anchor RECORD_CONFIGURATIONS */
 /*! @name 录制视频配置 */
@@ -173,6 +188,14 @@ typedef enum {
 #define NVS_COMPILE_OPTIMIZE_FOR_NETWORK_USE  @"optimize-for-network-use"       //!<是否前置索引表
 #define NVS_COMPILE_VIDEO_ENCODEC_NAME  @"video encoder name"       //!<指定视频压缩格式，目前支持hevc（h.265）
 //!@}
+
+/*!
+ *  \brief 获取音视频信息时的特殊标识
+ */
+typedef enum {
+    NvsAVFileinfoExtra_None = 0,          //!< \if ENGLISH \else 默认值 \endif
+    NvsAVFileinfoExtra_AVPixelFormat      //!< \if ENGLISH \else 获取AVPixelFormat \endif
+} NvsAVFileinfoExtraFlag;
 
 @class NvsCaptureDeviceCapability;
 @class NvsCaptureVideoFx;
@@ -272,8 +295,8 @@ typedef enum {
 /*!
  *  \brief 时间线播放视频延迟
  *  \param timeline 时间线
- *  \param delayTime 延迟时间
- *  \param isVideo 是否是视频（true是视频，false是音频）
+ *  \param time 延迟时间
+ *  \param flag 是否是视频（true是视频，false是音频）
  *  \since 2.5.0
  */
 - (void)didPlaybackDelayed:(NvsTimeline *)timeline delayTime:(int64_t)time isVideo:(bool)flag;
@@ -436,6 +459,41 @@ NVS_EXPORT @interface NvsStreamingContext : NSObject
 + (void)destroyInstance;
 
 /*!
+    \brief 检测当前SDK是否含有AR模块
+    \return 返回值0表示不含有AR模块，大于0表示含有AR模块
+    \since 2.5.0
+*/
++ (int)hasARModule;
+
+/*!
+    \brief 初始化人体检测机制
+    \param modelFilePath 人脸模型文件路径
+    \param licenseFilePath 授权文件路径
+    \param features 人体检测特征标志字段。请参见[人体检测特征标志](@ref NvsHumanDetectionFeatureFlag)
+    \return 返回值表示是否成功
+    \since 2.5.0
+*/
++ (BOOL)initHumanDetection:(NSString *)modelFilePath
+           licenseFilePath:(NSString *)licenseFilePath
+                  features:(int)features;
+
+/*!
+    \brief 初始化人体检测相关数据包
+    \param dataType 人体检测数据包类型。请参见[人体检测数据包类型](@ref NvsHumanDetectionDataTypeFlag)
+    \param dataFilePath 数据文件路径
+    \return 返回值表示是否成功
+    \since 2.6.0
+*/
++ (BOOL)setupHumanDetectionData:(int)dataType
+           dataFilePath:(NSString *)dataFilePath;
+
+/*!
+    \brief 关闭人体检测机制
+    \since 2.5.0
+*/
++ (void)closeHumanDetection;
+
+/*!
  *  \brief 从流媒体上下文中获取引擎所用的EAGLSharegroup对象
  *  \since 1.5.0
  */
@@ -447,6 +505,14 @@ NVS_EXPORT @interface NvsStreamingContext : NSObject
  *  \return 返回音视频文件信息的对象
  */
 - (NvsAVFileInfo *)getAVFileInfo:(NSString *)avFilePath;
+
+/*!
+ *  \brief 获取文件的音视频信息
+ *  \param avFilePath 文件路径
+ *  \param extraFlag 音视频信息特殊标识。请参见[音视频信息flag](@ref NvsAVFileinfoExtraFlag)
+ *  \return 返回音视频文件信息的对象
+ */
+- (NvsAVFileInfo *)getAVFileInfoExtra:(NSString *)avFilePath extraFlag:(int) extraFlag;
 
 /*!
  *  \brief 探测视频文件的I帧间距
@@ -790,21 +856,13 @@ setCustomCompileVideoHeight()接口来自定义高度，然后调用生成接口
 */
 - (BOOL)sendBufferToCapturePreview:(const NvsVideoFrameInfo *)data;
 
-/*!
- *  \brief 为直播启动采集设备预览
- *  \param captureDeviceIndex 采集设备索引
- *  \param videoResGrade 视频采集分辨率级别
- *  \param flags 标志字段，如无特殊需求请填写0。请参见 [NvsStreamingEngineCaptureFlag] (@ref NvsStreamingEngineCaptureFlag)
- *  \param aspectRatio 预览视频横纵比，传入nil则由系统采集设备来决定横纵比
- *  \param liveStreamingEndPoint 直播推流的目的地址(rtmp://xxx)
- *  \return 返回BOOL值。返回YES则启动预览成功，NO则启动预览失败。
- *  \since 1.1.0
- */
+/*! \cond */
 - (BOOL)startCapturePreviewForLiveStreaming:(unsigned int)captureDeviceIndex
                               videoResGrade:(NvsVideoCaptureResolutionGrade)videoResGrade
                                       flags:(int)flags
                                 aspectRatio:(const NvsRational *)aspectRatio
                       liveStreamingEndPoint:(NSString *)liveStreamingEndPoint;
+/*! \endcond */
 
 /*!
  *  \brief 获取采集预览视频分辨率

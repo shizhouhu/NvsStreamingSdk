@@ -144,6 +144,19 @@ NVS_EXPORT @interface NvsVideoClip : NvsClip
  */
 - (NvsSourceBackgroundMode)getSourceBackgroundMode;
 
+/*!
+    \brief 设置禁止画面的近似比例裁剪
+    \param disable 是否禁止
+    \sa isAmbiguousCropDisabled:
+ */
+- (void)disableAmbiguousCrop:(BOOL) disable;
+
+/*!
+    \brief 获取是否禁止画面的近似比例裁剪
+    \return 是否禁止画面的近似比例裁剪
+    \sa disableAmbiguousCrop: disable:
+ */
+- (BOOL)isAmbiguousCropDisabled;
 
 /*!
     \brief 设置图片片段动态移动ROI

@@ -151,6 +151,15 @@ NVS_EXPORT @interface NvsTimeline : NvsObject
     \since 2.5.0
  */
 - (BOOL)changeVideoSize:(int)videoWidth videoHeight:(int)videoHeight;
+
+/*!
+    \brief 设置字幕的边框为文字的实际包络大小
+    \param isActualBoundingRect 是否显示实际包络大小
+    \since 2.5.0
+ */
+- (void)setCaptionBoundingRectInActualMode:(BOOL)isActualBoundingRect;
+
+
 /*!
     \brief 获取时间线上的第一个字幕
     \return 返回获取的时间线字幕对象

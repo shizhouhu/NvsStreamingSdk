@@ -21,7 +21,8 @@
 typedef enum {
     NvsEffectCoreError_NoError = 0,
     NvsEffectCoreError_Unknown = -1,
-    NvsEffectCoreError_InvalidTexture = -2
+    NvsEffectCoreError_InvalidTexture = -2,
+    NvsEffectCoreError_InvalidPixelFormat = -3
 } NvsEffectCoreError;
 
 typedef enum {
@@ -56,13 +57,32 @@ NVS_EXPORT @interface NvsEffectRenderCore : NSObject
  *  \param inputTexId 输入纹理
  *  \param inputVideoResolution 输入纹理的视频解析度
  *  \param outputTexId 输出纹理
- *  \param timeStamp 当前渲染的时间戳
+ *  \param timestamp 当前渲染的时间戳
  *  \param flags 暂时为0
  *  \return 返回NvsEffectCoreError_NoError为成功,其他值都是错误,参考错误码定义
  *  \since 2.3.0
  */
 - (NvsEffectCoreError)renderEffect:(NvsEffect *)effect inputTexId:(int)inputTexId inputVideoResolution:(NvsEffectVideoResolution *)inputVideoResolution
                         outputTexId:(int)outputTexId timestamp:(int64_t)timestamp flags:(NvsRenderFlag)flags;
+
+/*!
+ *  \brief 渲染特效
+ *  \param effect 要渲染的特效对象
+ *  \param inputTexId 输入纹理
+ *  \param inputBuddyBuffer 输入纹理的伴随buffer(支持NV12或BGRA格式)
+ *  \param physicalOrientation 设备方向
+ *  \param inputVideoResolution 输入纹理的视频解析度
+ *  \param outputTexId 输出纹理
+ *  \param timestamp 当前渲染的时间戳
+ *  \param flags 暂时为0
+ *  \return 返回NvsEffectCoreError_NoError为成功,其他值都是错误,参考错误码定义
+ *  \since 2.5.0
+ */
+- (NvsEffectCoreError)renderEffect:(NvsEffect *)effect inputTexId:(int)inputTexId inputBuddyBuffer:(const NvsEffectVideoFrameInfo*)inputBuddyBuffer
+                        physicalOrientation:(int)physicalOrientation
+                        inputVideoResolution:(NvsEffectVideoResolution *)inputVideoResolution
+                        outputTexId:(int)outputTexId timestamp:(int64_t)timestamp flags:(NvsRenderFlag)flags;
+
 
 /*!
 *  \brief 清除特效中携带的OPenGL资源

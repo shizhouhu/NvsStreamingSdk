@@ -94,5 +94,13 @@ NVS_EXPORT @interface NvsLiveWindow : GLKView
 */
 - (UIImage*)takeScreenShot;
 
+/*!
+    \brief 设置LiveWindow的背景色
+    \param red red值(0~1)
+    \param green green值(0~1)
+    \param blue blue值(0~1)
+*/
+- (void)setBackgroundColorWithRed:(float)red green:(float)green blue:(float)blue;
+
 @end
 

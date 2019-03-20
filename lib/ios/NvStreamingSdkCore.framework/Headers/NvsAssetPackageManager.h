@@ -21,12 +21,13 @@
  */
 typedef enum
 {
-    NvsAssetPackageType_VideoFx = 0,         //!< \if ENGLISH \else 视频特效 \endif
-    NvsAssetPackageType_VideoTransition,     //!< \if ENGLISH \else 视频转场 \endif
-    NvsAssetPackageType_CaptionStyle,        //!< \if ENGLISH \else 字幕样式 \endif
-    NvsAssetPackageType_AnimatedSticker,     //!< \if ENGLISH \else 动画贴纸 \endif
-    NvsAssetPackageType_Theme,               //!< \if ENGLISH \else 主题 \endif
-    NvsAssetPackageType_CaptureScene         //!< \if ENGLISH \else 拍摄场景 \endif
+    NvsAssetPackageType_VideoFx = 0,        //!< \if ENGLISH \else 视频特效 \endif
+    NvsAssetPackageType_VideoTransition,    //!< \if ENGLISH \else 视频转场 \endif
+    NvsAssetPackageType_CaptionStyle,       //!< \if ENGLISH \else 字幕样式 \endif
+    NvsAssetPackageType_AnimatedSticker,    //!< \if ENGLISH \else 动画贴纸 \endif
+    NvsAssetPackageType_Theme,              //!< \if ENGLISH \else 主题 \endif
+    NvsAssetPackageType_CaptureScene,       //!< \if ENGLISH \else 拍摄场景 \endif
+    NvsAssetPackageType_ARScene             //!< \if ENGLISH \else AR场景 \endif
 } NvsAssetPackageType;
 
 /*!
@@ -240,6 +241,20 @@ NVS_EXPORT @interface NvsAssetPackageManager : NSObject
  *  \since 1.14.0
  */
 - (BOOL)isParticleFx:(NSString *)uuidString;
+
+/*!
+ *	\if ENGLISH
+ *  \brief Check whether a theme package contain music
+ *  \param uuidString theme package uuid
+ *  \return Returns boolean value indicating whether it contain music
+ *	\else
+ *  \brief 检查主题包是否含有音乐
+ *  \param uuidString 主题包uuid
+ *  \return 返回boolean值，表示否含有音乐
+ *	\endif
+ *  \since 2.6.0
+ */
+- (BOOL)isThemeContainMusic:(NSString *)uuidString;
 
 /*!
  *  \brief 获取某个类型为VideoFx的资源的特效描述信息

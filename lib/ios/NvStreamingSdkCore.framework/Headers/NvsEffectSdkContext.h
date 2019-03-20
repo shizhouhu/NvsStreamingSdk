@@ -26,6 +26,20 @@ typedef enum {
     NvsEffectSdkContextFlag_NoFlag = 0
 } NvsEffectSdkContextFlag;
 
+/*!
+ *  \brief 人体检测特征标志
+ */
+typedef enum {
+    NvsEffectSdkHumanDetectionFeature_FaceLandmark = 1,
+    NvsEffectSdkHumanDetectionFeature_FaceAction = 2
+} NvsEffectSdkHumanDetectionFeatureFlag;
+
+/*!
+ *  \brief 人体检测数据包类型
+ */
+typedef enum {
+    NvsEffectSdkHumanDetectionDataType_FakeFace = 0
+} NvsEffectSdkHumanDetectionDataTypeFlag;
 
 NVS_EXPORT @interface NvsEffectSdkContext : NSObject
 
@@ -51,6 +65,42 @@ NVS_EXPORT @interface NvsEffectSdkContext : NSObject
  */
 + (void)destroyInstance;
 
+
+/*!
+    \brief 检测当前SDK是否含有AR模块
+    \return 返回值0表示不含有AR模块，大于0表示含有AR模块
+    \since 2.5.0
+*/
++ (int)hasARModule;
+
+/*!
+    \brief 初始化人体检测机制
+    \param modelFilePath 人脸模型文件路径
+    \param licenseFilePath 授权文件路径
+    \param features 人体检测特征标志字段。请参见[人体检测特征标志](@ref NvsEffectSdkHumanDetectionFeatureFlag)
+    \return 返回值表示是否成功
+    \since 2.5.0
+*/
++ (BOOL)initHumanDetection:(NSString *)modelFilePath
+           licenseFilePath:(NSString *)licenseFilePath
+                  features:(int)features;
+
+/*!
+    \brief 初始化人体检测相关数据包
+    \param dataType 人体检测数据包类型。请参见[人体检测数据包类型](@ref NvsEffectSdkHumanDetectionDataTypeFlag)
+    \param dataFilePath 数据文件路径
+    \return 返回值表示是否成功
+    \since 2.6.0
+*/
++ (BOOL)setupHumanDetectionData:(int)dataType
+           dataFilePath:(NSString *)dataFilePath;
+
+/*!
+    \brief 关闭人体检测机制
+    \since 2.5.0
+*/
++ (void)closeHumanDetection;
+
 /*!
  *  \brief 获取全部内嵌视频特效名称
  *  \return 返回包含所有内嵌的视频特效名称的数组对象
@@ -60,6 +110,7 @@ NVS_EXPORT @interface NvsEffectSdkContext : NSObject
 /*!
  *  \brief 创建特效对象
  *  \param effectId 特效id。对于内嵌视频特效，就是特效的名字，如果是资源包特效，就是资源包id
+ *  \param aspectRatio 横纵比
  *  \return 返回创建的特效对象
  */
 - (NvsVideoEffect *)createVideoEffect:(NSString *)effectId aspectRatio:(NvsEffectRational)aspectRatio;
@@ -69,5 +120,14 @@ NVS_EXPORT @interface NvsEffectSdkContext : NSObject
  *  \return 返回创建的特效渲染对象
  */
 - (NvsEffectRenderCore *)createEffectRenderCore;
+
+/*! \cond */
+/*!
+ *  \brief 验证某项功能是否可用。
+ *  \param sdkFunctionName sdk功能的名字
+ *  \return 返回BOOL值。YES表示授权验证成功，NO则验证失败。
+ */
++ (BOOL)functionalityAuthorised:(NSString *)sdkFunctionName;
+/*! \endcond */
 
 @end
