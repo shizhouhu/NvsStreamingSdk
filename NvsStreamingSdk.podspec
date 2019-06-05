@@ -15,5 +15,5 @@ Pod::Spec.new do |s|
   s.public_header_files = "lib/**/NvStreamingSdkCore.framework/Headers/*.h"
   s.ios.vendored_frameworks = "lib/**/NvStreamingSdkCore.framework"
   s.requires_arc       = true
-  s.xcconfig = {"ENABLE_BITCODE" => "NO", "VALID_ARCHS" => "arm64 armv7 x86_64"}
+  s.xcconfig = {"ENABLE_BITCODE" => "NO", "VALID_ARCHS" => "arm64 armv7 x86_64", "HEADER_SEARCH_PATHS" => "$(inherited) \"${PODS_ROOT}/NvsStreamingSdk/lib/ios\""}
 end
