@@ -15,10 +15,19 @@
 #import <Foundation/Foundation.h>
 #import "NvsCommonDef.h"
 
+/*! \if ENGLISH
+ *  \brief AR effects.
+ *  \else
+ *  \brief AR特效
+ *  \endif
+*/
 NVS_EXPORT @interface NvsAREffect : NSObject
 
-/*!
-   \brief 初始化人脸特效
+/*! \if ENGLISH
+ *  \brief Initialize face effects.
+ *  \else
+ *  \brief 初始化人脸特效
+ *  \endif
 */
 +(void) InitAREffect:(NSString*) faceModelPath landmark:(NSString *)landmarkModelPath;
 
