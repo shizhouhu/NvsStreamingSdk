@@ -10,7 +10,6 @@
 
 //meishe
 #import "NvsArbitraryData.h"
-#import "NvsAREffectContext.h"
 #import "NvsARFaceContext.h"
 #import "NvsARSceneManipulate.h"
 #import "NvsAssetPackageManager.h"

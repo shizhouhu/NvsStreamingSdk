@@ -20,7 +20,6 @@
 #import "NvsVideoFrameReceiver.h"
 #import "NvsCustomVideoFx.h"
 #import "NvsCommonDef.h"
-#include "NvsAREffectContext.h"
 
 
 /*! \if ENGLISH
@@ -1782,15 +1781,6 @@ NVS_EXPORT @interface NvsStreamingContext : NSObject
  *  \sa getCurrentCaptureSceneId
 */
 - (void)removeCurrentCaptureScene;
-
-/*! \if ENGLISH
- *  \brief Gets the face effect context.
- *  \else
- *  \brief 获取人脸特技上下文
- *  \endif
- *  \since 1.17.0
-*/
-- (NvsAREffectContext*)getAREffectContext;
 
 /*! \if ENGLISH
  *  \brief Starts recording. Please refer to [Method of Recording Video](\ref videoRecorderMode.md).

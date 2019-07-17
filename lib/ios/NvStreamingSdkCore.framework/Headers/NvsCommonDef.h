@@ -70,6 +70,19 @@ typedef enum
 } NvsVideoRotation;
 
 /*! \if ENGLISH
+*   \brief Video codec type
+*   \else
+*   \brief 视频编码类型
+*   \endif
+*/
+typedef enum
+{
+    NvsVideoCodecType_Unknown = 0,
+    NvsVideoCodecType_H264,
+    NvsVideoCodecType_H265
+} NvsVideoCodecType;
+
+/*! \if ENGLISH
 *   \brief The role of the clip in the theme
 *   \else
 *   \brief 片段在主题中的角色

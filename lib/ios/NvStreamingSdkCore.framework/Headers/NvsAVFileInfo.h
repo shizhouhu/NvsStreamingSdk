@@ -114,6 +114,18 @@ NVS_EXPORT @interface NvsAVFileInfo : NSObject
 - (unsigned int)getVideoStreamComponentBitCount:(unsigned int)videoStreamIndex;
 
 /*! \if ENGLISH
+ *  \brief Gets the video codec type of the current video stream through the video stream index.
+ *  \param videoStreamIndex Video stream index
+ *  \return Returns the NvsVideoCodecType object，which indicates the video codec type in the current video stream
+ *  \else
+ *  \brief 通过视频流索引获取当前视频流的编码类型
+ *  \param videoStreamIndex 视频流索引
+ *  \return 返回NvsVideoCodecType对象，表示当前视频流的编码类型
+ *  \endif
+*/
+- (NvsVideoCodecType)getVideoStreamCodecType:(unsigned int)videoStreamIndex;
+
+/*! \if ENGLISH
  *  \brief Gets the audio stream duration through the audio stream index.
  *  \param audioStreamIndex Audio stream index
  *  \return Returns the duration of the current audio stream (in microseconds).

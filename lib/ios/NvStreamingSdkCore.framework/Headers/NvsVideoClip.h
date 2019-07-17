@@ -145,6 +145,18 @@ NVS_EXPORT @interface NvsVideoClip : NvsClip
 - (void)setExtraVideoRotation:(NvsExtraVideoRotation)rotation;
 
 /*! \if ENGLISH
+ *  \brief Sets the video's extra rotation angle.
+ *  \param rotation Extra rotation angle
+ *  \else
+ *  \brief 设置视频额外旋转角度
+ *  \param rotation 额外旋转角度
+ *  \param rotateROI 是否旋转ROI运动方向
+ *  \endif
+ *  \sa getExtraVideoRotation
+*/
+- (void)setExtraVideoRotation:(NvsExtraVideoRotation)rotation rotateROI:(bool)rotateROI;
+
+/*! \if ENGLISH
  *  \brief Gets the video's extra rotation angle.
  *  \return Return the extra rotation angle which obtains.
  *  \else
