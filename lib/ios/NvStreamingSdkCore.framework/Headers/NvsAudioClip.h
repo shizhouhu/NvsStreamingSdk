@@ -17,59 +17,104 @@
 
 @class NvsAudioFx;
 
-/*!
+/*! \if ENGLISH
+ *  \brief Audio clip, description of the audio file.
+ *
+ *  For audio clips, users can set its triming in-point and out-point, play speed, etc. Users can also add, insert, remove, and acquire multiple audio effects.
+ *  \warning In the NvsAudioClip class, all public APIs are used in the UI thread! ! !
+ *  \else
  *  \brief 音频片段，对音频文件的描述
- *   
+ *
  *  音频片段既可以修改其裁剪入点和出点，播放速度等，还可以添加、插入、移除以及获取多个音频特效(Audio Fx)。
  *  \warning NvsAudioClip类中，所有public API都在UI线程使用！！！
- */
+ *  \endif
+*/
 NVS_EXPORT @interface NvsAudioClip: NvsClip
 
-@property (nonatomic) int64_t fadeInDuration;  //!< 淡入时长（单位微秒）\since 1.16.0
-@property (nonatomic) int64_t fadeOutDuration; //!< 淡出时长（单位微秒）\since 1.16.0
+/*! \if ENGLISH
+ *  \brief Fade in duration (in microseconds).
+ *  \else
+ *  \brief 淡入时长（单位微秒）
+ *  \endif
+ *  \since 1.16.0
+*/
+@property (nonatomic) int64_t fadeInDuration;
 
-/*!
+/*! \if ENGLISH
+ *  \brief Fade out duration (in microseconds).
+ *  \else
+ *  \brief 淡出时长（单位微秒）
+ *  \endif
+ *  \since 1.16.0
+*/
+@property (nonatomic) int64_t fadeOutDuration;
+
+/*! \if ENGLISH
+ *  \brief Appends special effects at the end of the clip
+ *  \param fxName The name of special effect,please refer to [getAllBuiltinAudioFxNames()](@ref NvsStreamingContext::getAllBuiltinAudioFxNames) or [The List of Built-in Effect Name](\ref FxNameList.md).
+ *  \return Returns the appended NvsAudioFx object.
+ *  \warning This interface will cause the streaming engine state to jump to the state of stopping engine. For details, please refer to [The Topic of Changing Engine] (\ref EngineChange.md)。
+ *  \else
  *  \brief 在片段尾部追加特效
- *  \param fxName 特效名称。获取特效名称，请参照[getAllBuiltinAudioFxNames()](@ref NvsStreamingContext::getAllBuiltinAudioFxNames)或[内建特效名称列表] (\ref FxNameList.md)
+ *  \param fxName 特效名称。获取特效名称，请参照[getAllBuiltinAudioFxNames()](@ref NvsStreamingContext::getAllBuiltinAudioFxNames)或[内建特效名称列表] (\ref FxNameList.md).
  *  \return 返回追加的音频特效对象
  *  \warning 此接口会引发流媒体引擎状态跳转到引擎停止状态，具体情况请参见[引擎变化专题] (\ref EngineChange.md)。
+ *  \endif
  *  \sa insertFx:fxIndex:
  *  \sa removeFx:
  *  \sa getFxWithIndex:
- */
+*/
 - (NvsAudioFx *)appendFx:(NSString *)fxName;
 
-/*!
+/*! \if ENGLISH
+ *  \brief Inserts a special effect at the index of the specified effect on the clip.
+ *  \param fxName The name of special effect,please refer to [getAllBuiltinAudioFxNames()](@ref NvsStreamingContext::getAllBuiltinAudioFxNames) or [The List of Built-in Effect Name](\ref FxNameList.md).
+ *  \param fxIndex The index of the specified effect
+ *  \return Returns the inserted NvsAudioFx object.
+ *  \warning This interface will cause the streaming engine state to jump to the state of stopping engine. For details, please refer to [The Topic of Changing Engine] (\ref EngineChange.md).
+ *  \else
  *  \brief 在片段上指定特效索引处插入特效
- *  \param fxName 特效名称。获取特效名称，请参照[getAllBuiltinAudioFxNames()](@ref NvsStreamingContext::getAllBuiltinAudioFxNames)或[内建特效名称列表] (\ref FxNameList.md)
- *  \param fxIndex 插入特效索引
+ *  \param fxName 特效名称。获取特效名称，请参照[getAllBuiltinAudioFxNames()](@ref NvsStreamingContext::getAllBuiltinAudioFxNames)或[内建特效名称列表] (\ref FxNameList.md)。
+ *  \param fxIndex 指定特效索引
  *  \return 返回插入的音频特效对象
  *  \warning 此接口会引发流媒体引擎状态跳转到引擎停止状态，具体情况请参见[引擎变化专题] (\ref EngineChange.md)。
+ *  \endif
  *  \sa appendFx:
  *  \sa removeFx:
  *  \sa getFxWithIndex:
- */
+*/
 - (NvsAudioFx *)insertFx:(NSString *)fxName fxIndex:(unsigned int)fxIndex;
 
-/*!
+/*! \if ENGLISH
+ *  \brief Removes the special effect from the specified index.
+ *  \param fxIndex The index of the special effect
+ *  \return Returns BOOL value. If the value is YES, the removal is successful, and the NO means it fails.
+ *  \warning This interface will cause the streaming engine state to jump to the state of stopping engine. For details, please refer to [The Topic of Changing Engine] (\ref EngineChange.md).
+ *  \else
  *  \brief 移除指定索引的特效
  *  \param fxIndex 特效索引
  *  \return 返回BOOL值。值为YES则移除成功，NO则移除失败。
  *  \warning 此接口会引发流媒体引擎状态跳转到引擎停止状态，具体情况请参见[引擎变化专题] (\ref EngineChange.md)。
+ *  \endif
  *  \sa appendFx:
  *  \sa insertFx:fxIndex:
  *  \sa getFxWithIndex:
- */
+*/
 - (BOOL)removeFx:(unsigned int)fxIndex;
 
-/*!
+/*! \if ENGLISH
+ *  \brief Gets the special effect by index
+ *  \param fxIndex The index of the special effect
+ *  \return Returns the acquired NvsAudioFx object.
+ *  \else
  *  \brief 通过索引获取特效
  *  \param fxIndex 特效索引
  *  \return 返回获取的音频特效对象
+ *  \endif
  *  \sa appendFx:
  *  \sa insertFx:fxIndex:
  *  \sa removeFx:
- */
+*/
 - (NvsAudioFx *)getFxWithIndex:(unsigned int)fxIndex;
 
 @end

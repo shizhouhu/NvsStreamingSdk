@@ -14,28 +14,60 @@
 
 #import <Foundation/Foundation.h>
 
+/*! \if ENGLISH
+*   \brief Detects configuration options
+*   \else
+*   \brief 检测配置选项
+*   \endif
+*/
+typedef enum
+{
+    NvsObjectTrackingType_Face = 0,        //!< \if ENGLISH Detects faces \else 检测人脸 \endif
+    NvsObjectTrackingType_Animal        //!< \if ENGLISH Detects animal \else 检测动物 \endif
+} NvsObjectTrackingType;
+
+
 @protocol NvsARFaceContextDelegate <NSObject>
 @optional
 
-/*!
+/*! \if ENGLISH
+ *  \brief Notifies that the face props starts loading.
+ *  \param itemPath Face props path
+ *  \else
  *  \brief 通知人脸道具开始加载
  *  \param itemPath 人脸道具路径
+ *  \endif
  */
 - (void)notifyFaceItemLoadingBegin:(NSString *)itemPath ;
 
-
-/*!
+/*! \if ENGLISH
+ *  \brief Notifies the completion of loading face props
+ *  \else
  *  \brief 通知人脸道具加载完成
+ *  \endif
  */
 - (void)notifyFaceItemLoadingFinish ;
+
+#if defined(NV_ENABLE_AI) && defined(NV_AI_ST)
+    /*! \if ENGLISH
+     *  \brief Notifies the error of loading face props
+     *  \else
+     *  \brief 通知人脸道具加载出错
+     *  \endif
+     */
+    - (void)notifyFaceItemLoadingFailed:(NSString *)itemPath error:(int) error ;
+#endif
 
 @end
 
 /*!
- *  \brief 粒子特效上下文
- *
- *  人脸特效上下文类可视作调整粒子效果的入口。
- *  \warning NvsParticleSystemContext类中，所有public API都在UI线程使用！！！
+ *  \if ENGLISH
+ *  \brief ARFace context
+ *  \warning In the NvsARFaceContext class, all public APIs are used in the UI thread! ! !
+ *  \else
+ *  \brief ARFace上下文
+ *  \warning NvsARFaceContext类中，所有public API都在UI线程使用！！！
+ *  \endif
  */
 @interface NvsARFaceContext : NSObject
 
@@ -43,5 +75,6 @@
 
 - (void)setInternalContext:(void *)internalContext;
 - (bool)isFaceTracking;
+- (bool)isObjectTracking:(NvsObjectTrackingType)trackingType;
 
 @end
