@@ -15,39 +15,63 @@
 #import <Foundation/Foundation.h>
 #import "NvsCommonDef.h"
 
-/*!
+/*! \if ENGLISH
+ *  \brief The height level of the extracted video frame
+ *  \else
  *  \brief 生成提取视频帧的高度级别
+ *  \endif
  *  \since 1.2.0
- */
+*/
 typedef enum {
-    NvsVideoFrameHeightGrade360 = 0,  //!< 生成视频帧高度360像素
-    NvsVideoFrameHeightGrade480,      //!< 生成视频帧高度480像素
-    NvsVideoFrameHeightGrade720       //!< 生成视频帧高度720像素
+    NvsVideoFrameHeightGrade360 = 0, //!< \if ENGLISH Video frame of 360 pixels in height \else 生成视频帧高度360像素 \endif
+    NvsVideoFrameHeightGrade480,     //!< \if ENGLISH Video frame of 480 pixels in height \else 生成视频帧高度480像素 \endif
+    NvsVideoFrameHeightGrade720      //!< \if ENGLISH Video frame of 720 pixels in height \else 生成视频帧高度720像素 \endif
 } NvsVideoFrameHeightGrade;
 
 @class UIImage;
-/*!
+
+/*! \if ENGLISH
+ *  \brief Video frame extraction
+ *
+ *  The video frame extraction class can acquire the original video frame image at a certain moment.
+ *  \warning In the NvsVideoFrameRetriever class, all public APIs can be used not only in the UI thread, but also across threads! ! !
+ *  \else
  *  \brief 视频帧提取
  *
  *  视频帧提取类，可以获取某一时刻的原始视频帧图像。
  *  \warning NvsVideoFrameRetriever类中，所有public API不仅可以在UI线程使用，也可以跨线程使用！！！
+ *  \endif
  *  \since 1.2.0
- */
+*/
 NVS_EXPORT @interface NvsVideoFrameRetriever : NSObject
-/*!
+
+/*! \if ENGLISH
+ *  \brief Gets a video frame image at a certain moment. For details, please refer to [Video Frame Image Extraction](@ref videoFrameRetriever.md).
+ *  \param time the time value (in microseconds)
+ *  \param videoFrameHeightGrade The height level of the extracted video frame
+ *  \return Returns a UIImage object representing the video frame image at a certain moment.
+ *  \else
  *  \brief 获取某一时刻视频帧图像。详细情况参见[视频帧图像提取专题] (@ref videoFrameRetriever.md)
- *  \param time 获取视频帧的时间值(单位微秒)
+ *  \param time 时间值(单位微秒)
  *  \param videoFrameHeightGrade 生成视频帧图像的高度级别
  *  \return 返回UIImage对象，表示某一时刻视频帧图像
- */
+ *  \endif
+*/
 - (UIImage *)getFrameAtTime:(int64_t)time videoFrameHeightGrade:(NvsVideoFrameHeightGrade)videoFrameHeightGrade;
-/*!
+
+/*! \if ENGLISH
+ *  \brief Gets a video frame image at a certain time which users can customize the height of the video frame. For details, please refer to [Video Frame Image Extraction] (@ref videoFrameRetriever.md).
+ *  \param time the time value (in microseconds)
+ *  \param videoFrameHeight Custom video frame height.
+ *  \return Returns a UIImage object representing the video frame image at a certain moment.
+ *  \else
  *  \brief 获取某一时刻视频帧图像，可以自定义视频帧的高度。详细情况参见[视频帧图像提取专题] (@ref videoFrameRetriever.md)
- *  \param time 获取视频帧的时间值(单位微秒)
+ *  \param time 时间值(单位微秒)
  *  \param videoFrameHeight 自定义视频帧高度
  *  \return 返回UIImage对象，表示某一时刻视频帧图像
+ *  \endif
  *  \since 1.15.0
- */
+*/
 - (UIImage *)getFrameAtTimeWithVideoFrameHeight:(int64_t)time videoFrameHeight:(unsigned int)videoFrameHeight;
 @end
 

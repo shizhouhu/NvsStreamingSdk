@@ -1,0 +1,4 @@
+module NvStreamingSdkCore [system] {
+    header "NvStreamingSdkCore.h"
+    export *
+}
